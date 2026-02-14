@@ -13,7 +13,7 @@ export default function App() {
   const [userId, setUserId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  u useEffect(() => {
+  useEffect(() => {
     // Check for active Supabase session
     const checkSession = async () => {
       try {
