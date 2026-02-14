@@ -72,25 +72,6 @@ export default function App() {
     };
   }, []);
 
-
-    // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (session?.user) {
-        setUserId(session.user.id);
-        localStorage.setItem('userId', session.user.id);
-        localStorage.setItem('userEmail', session.user.email || '');
-      } else {
-        setUserId(null);
-        localStorage.removeItem('userId');
-        localStorage.removeItem('userEmail');
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
   const handleAuthSuccess = (id: string) => {
     setUserId(id);
   };
