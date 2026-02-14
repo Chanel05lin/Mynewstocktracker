@@ -4,7 +4,7 @@ import { Holdings } from './components/Holdings';
 import { Analysis } from './components/Analysis';
 import { Settings } from './components/Settings';
 import { Auth } from './components/Auth';
-import { supabase } from '/utils/supabase/client';
+import { supabase } from '../../utils/supabase/client';
 
 type TabType = 'holdings' | 'analysis' | 'settings';
 
