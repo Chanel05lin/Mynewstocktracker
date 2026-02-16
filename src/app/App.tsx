@@ -17,7 +17,16 @@ export default function App() {
     // Check for active Supabase session
     const checkSession = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession();
+        // Add a timeout to prevent hanging
+        const sessionPromise = supabase.auth.getSession();
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Session check timeout')), 5000)
+        );
+        
+        const { data: { session }, error } = await Promise.race([
+          sessionPromise,
+          timeoutPromise
+        ]) as any;
         
         if (error) {
           console.error('Session check error:', error);
@@ -35,6 +44,9 @@ export default function App() {
         }
       } catch (err) {
         console.error('Error checking session:', err);
+        // On timeout or error, assume no session
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userEmail');
       } finally {
         setLoading(false);
       }
