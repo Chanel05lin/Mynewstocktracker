@@ -45,6 +45,14 @@ app.post("/auth/signup", async (c) => {
     const supabase = createClient(
       Deno.env.get('SUPABASE_URL')!,
       Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+      {
+        db: {
+          schema: 'public',
+          pool: {
+            mode: 'pooler'
+          }
+        }
+      }
     );
 
     // Create user with auto-confirmed email
