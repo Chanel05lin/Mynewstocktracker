@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import { projectId, publicAnonKey } from '/utils/supabase/info';
-import { getAuthHeaders } from '/utils/auth';
+import { projectId, publicAnonKey } from '../../../utils/supabase/info';
+import { getAuthHeaders } from '../../../utils/auth';
 
 interface Transaction {
   id: string;
@@ -130,8 +130,8 @@ export function TransactionForm({ stockCode, stockName, onBack, onTransactionAdd
       setLoading(true);
 
       const url = isEditing
-        ? `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/transactions/${editTransaction.id}`
-        : `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/transactions`;
+        ? `https://${projectId}.supabase.co/functions/v1/server/transactions/${editTransaction.id}`
+        : `https://${projectId}.supabase.co/functions/v1/server/transactions`;
 
       const response = await fetch(url, {
         method: isEditing ? 'PUT' : 'POST',

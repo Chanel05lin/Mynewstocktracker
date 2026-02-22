@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { TrendingUp, TrendingDown, Calendar } from 'lucide-react';
-import { projectId, publicAnonKey } from '/utils/supabase/info';
-import { getAuthHeaders } from '/utils/auth';
+import { projectId, publicAnonKey } from '../../../utils/supabase/info';
+import { getAuthHeaders } from '../../../utils/auth';
 
 interface Transaction {
   id: string;
@@ -30,7 +30,7 @@ export function Analysis() {
       setLoading(true);
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/transactions`,
+        `https://${projectId}.supabase.co/functions/v1/server/transactions`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -62,7 +62,7 @@ export function Analysis() {
 
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/transactions/${id}`,
+        `https://${projectId}.supabase.co/functions/v1/server/transactions/${id}`,
         {
           method: 'DELETE',
           headers: {

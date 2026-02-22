@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Plus, TrendingUp, TrendingDown } from 'lucide-react';
-import { projectId, publicAnonKey } from '/utils/supabase/info';
-import { getAuthHeaders } from '/utils/auth';
+import { projectId, publicAnonKey } from '../../../utils/supabase/info';
+import { getAuthHeaders } from '../../../utils/auth';
 import { AddStockModal } from './AddStockModal';
 import { StockDetail } from './StockDetail';
 
@@ -43,7 +43,7 @@ export function Holdings() {
       let watchlist: WatchlistStock[] = [];
       try {
         const watchlistResponse = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/watchlist`,
+          `https://${projectId}.supabase.co/functions/v1/server/watchlist`,
           {
             headers: {
               'Authorization': `Bearer ${publicAnonKey}`,
@@ -66,7 +66,7 @@ export function Holdings() {
       let holdings: any[] = [];
       try {
         const portfolioResponse = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/portfolio`,
+          `https://${projectId}.supabase.co/functions/v1/server/portfolio`,
           {
             headers: {
               'Authorization': `Bearer ${publicAnonKey}`,
@@ -105,7 +105,7 @@ export function Holdings() {
               : 'stock';
             
             const stockResponse = await fetch(
-              `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/${endpoint}/${stockCode}`,
+              `https://${projectId}.supabase.co/functions/v1/server/${endpoint}/${stockCode}`,
               {
                 headers: {
                   'Authorization': `Bearer ${publicAnonKey}`

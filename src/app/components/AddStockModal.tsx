@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Search } from 'lucide-react';
-import { projectId, publicAnonKey } from '/utils/supabase/info';
-import { getAuthHeaders } from '/utils/auth';
+import { projectId, publicAnonKey } from '../../../utils/supabase/info';
+import { getAuthHeaders } from '../../../utils/auth';
 
 interface AddStockModalProps {
   onClose: () => void;
@@ -35,7 +35,7 @@ export function AddStockModal({ onClose, onStockAdded }: AddStockModalProps) {
         : 'stock';
       
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/${endpoint}/${searchQuery}`,
+        `https://${projectId}.supabase.co/functions/v1/server/${endpoint}/${searchQuery}`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`
@@ -67,7 +67,7 @@ export function AddStockModal({ onClose, onStockAdded }: AddStockModalProps) {
     try {
       // Save to watchlist
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/watchlist`,
+        `https://${projectId}.supabase.co/functions/v1/server/watchlist`,
         {
           method: 'POST',
           headers: {

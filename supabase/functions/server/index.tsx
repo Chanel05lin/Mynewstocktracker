@@ -27,12 +27,12 @@ app.use("*", async (c, next) => {
 });
 
 // Health check endpoint
-app.get("/make-server-08a91c5a/health", (c) => {
+app.get("/health", (c) => {
   return c.json({ status: "ok" });
 });
 
 // Sign up endpoint - auto-confirms email since SMTP is not configured
-app.post("/make-server-08a91c5a/auth/signup", async (c) => {
+app.post("/auth/signup", async (c) => {
   try {
     const { email, password } = await c.req.json();
     
@@ -90,7 +90,7 @@ async function fetchAndDecode(url: string, headers: Record<string, string>) {
 
 // Get stock data endpoint
 // Uses Tencent Finance API for real-time Chinese stock data
-app.get("/make-server-08a91c5a/stock/:code", async (c) => {
+app.get("/stock/:code", async (c) => {
   try {
     const code = c.req.param("code");
     
@@ -222,7 +222,7 @@ app.get("/make-server-08a91c5a/stock/:code", async (c) => {
 });
 
 // Get Hong Kong stock data endpoint
-app.get("/make-server-08a91c5a/hk-stock/:code", async (c) => {
+app.get("/hk-stock/:code", async (c) => {
   try {
     const code = c.req.param("code");
     
@@ -340,7 +340,7 @@ app.get("/make-server-08a91c5a/hk-stock/:code", async (c) => {
 // Watchlist endpoints
 
 // Get watchlist
-app.get("/make-server-08a91c5a/watchlist", async (c) => {
+app.get("/watchlist", async (c) => {
   try {
     const userId = c.get("userId");
     const watchlist = await kv.getByPrefix(`${userId}:watchlist:`);
@@ -354,7 +354,7 @@ app.get("/make-server-08a91c5a/watchlist", async (c) => {
 });
 
 // Add to watchlist
-app.post("/make-server-08a91c5a/watchlist", async (c) => {
+app.post("/watchlist", async (c) => {
   try {
     const userId = c.get("userId");
     const body = await c.req.json();
@@ -383,7 +383,7 @@ app.post("/make-server-08a91c5a/watchlist", async (c) => {
 });
 
 // Remove from watchlist
-app.delete("/make-server-08a91c5a/watchlist/:code", async (c) => {
+app.delete("/watchlist/:code", async (c) => {
   try {
     const userId = c.get("userId");
     const code = c.req.param("code");
@@ -400,7 +400,7 @@ app.delete("/make-server-08a91c5a/watchlist/:code", async (c) => {
 // Transaction endpoints
 
 // Get all transactions for a user
-app.get("/make-server-08a91c5a/transactions", async (c) => {
+app.get("/transactions", async (c) => {
   try {
     const userId = c.get("userId");
     const transactions = await kv.getByPrefix(`${userId}:transaction:`);
@@ -414,7 +414,7 @@ app.get("/make-server-08a91c5a/transactions", async (c) => {
 });
 
 // Add a new transaction
-app.post("/make-server-08a91c5a/transactions", async (c) => {
+app.post("/transactions", async (c) => {
   try {
     const userId = c.get("userId");
     const body = await c.req.json();
@@ -457,7 +457,7 @@ app.post("/make-server-08a91c5a/transactions", async (c) => {
 });
 
 // Update a transaction
-app.put("/make-server-08a91c5a/transactions/:id", async (c) => {
+app.put("/transactions/:id", async (c) => {
   try {
     const userId = c.get("userId");
     const id = c.req.param("id");
@@ -505,7 +505,7 @@ app.put("/make-server-08a91c5a/transactions/:id", async (c) => {
 });
 
 // Delete a transaction
-app.delete("/make-server-08a91c5a/transactions/:id", async (c) => {
+app.delete("/transactions/:id", async (c) => {
   try {
     const userId = c.get("userId");
     const id = c.req.param("id");
@@ -525,7 +525,7 @@ app.delete("/make-server-08a91c5a/transactions/:id", async (c) => {
 });
 
 // Get portfolio summary
-app.get("/make-server-08a91c5a/portfolio", async (c) => {
+app.get("/portfolio", async (c) => {
   try {
     const userId = c.get("userId");
     const transactions = await kv.getByPrefix(`${userId}:transaction:`);

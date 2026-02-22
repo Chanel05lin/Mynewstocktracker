@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Mail, Lock, User, CheckCircle } from 'lucide-react';
-import { supabase } from '/utils/supabase/client';
-import { projectId, publicAnonKey } from '/utils/supabase/info';
+import { supabase } from '../../../utils/supabase/client';
+import { projectId, publicAnonKey } from '../../../utils/supabase/info';
 
 interface AuthProps {
   onAuthSuccess: (userId: string) => void;
@@ -42,7 +42,7 @@ export function Auth({ onAuthSuccess }: AuthProps) {
       if (isSignUp) {
         // Call server endpoint to create user with auto-confirmed email
         const signupResponse = await fetch(
-          `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/auth/signup`,
+          `https://${projectId}.supabase.co/functions/v1/server/auth/signup`,
           {
             method: 'POST',
             headers: {

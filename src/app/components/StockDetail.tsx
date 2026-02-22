@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { ArrowLeft, Plus, Trash2, Edit2 } from 'lucide-react';
-import { projectId, publicAnonKey } from '/utils/supabase/info';
-import { getAuthHeaders } from '/utils/auth';
+import { projectId, publicAnonKey } from '../../../utils/supabase/info';
+import { getAuthHeaders } from '../../../utils/auth';
 import { TransactionForm } from './TransactionForm';
 
 interface Transaction {
@@ -52,7 +52,7 @@ export function StockDetail({ stockCode, stockName, onBack, onUpdate }: StockDet
         : 'stock';
       
       const stockResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/${endpoint}/${stockCode}`,
+        `https://${projectId}.supabase.co/functions/v1/server/${endpoint}/${stockCode}`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`
@@ -69,7 +69,7 @@ export function StockDetail({ stockCode, stockName, onBack, onUpdate }: StockDet
 
       // Fetch transactions
       const txResponse = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/transactions`,
+        `https://${projectId}.supabase.co/functions/v1/server/transactions`,
         {
           headers: {
             'Authorization': `Bearer ${publicAnonKey}`,
@@ -138,7 +138,7 @@ export function StockDetail({ stockCode, stockName, onBack, onUpdate }: StockDet
 
     try {
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/make-server-08a91c5a/transactions/${id}`,
+        `https://${projectId}.supabase.co/functions/v1/server/transactions/${id}`,
         {
           method: 'DELETE',
           headers: {
